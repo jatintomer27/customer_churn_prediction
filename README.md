@@ -1,2 +1,9 @@
-# customer_churn_prediction
-Customer Churn Prediction for telecom sector 
+# customer-churn-prediction
+
+### How to run this project
+
+```conda create -n customer_churn python=3.11 -y```
+
+```conda activate customer_churn```
+
+```pip install -r requirements.txt```

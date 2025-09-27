@@ -1,0 +1,4 @@
+# Contains the parameters of the models
+
+SVM:
+  kernel: 'rbf'

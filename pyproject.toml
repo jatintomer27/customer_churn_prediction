@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61.0","wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "customer_churn_prediction"
+version = "0.1.0"
+description = """
+machine learning package for predicting
+customer churn in telecom sector.
+"""
+readme = "README.md"
+license = { file = "LICENSE" }
+authors = [
+    { name = "Jatin Tomer" , email = "jatintomer27@gmail.com" }
+]
+requires-python = ">=3.11"
+keywords = [
+    "machine-learning",
+    "customer-churn",
+    "ml"
+]
+dependencies = [
+    "pandas",
+    "numpy",
+    "matplotlib",
+    "kaggle",
+]
+
+[project-urls]
+Homepage = "https://github.com/jatintomer27/customer_churn_prediction"
+Repository = "https://github.com/jatintomer27/customer_churn_prediction"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tools.setuptools.package.find]
+where = ["src"]
