@@ -28,10 +28,10 @@ class DataValidation:
                 if dataset_columns.get(column_name):
                     valiation_status = True if valiation_status else False
                     if dataset_columns.get(column_name) == datatype:
-                        # valiation_status = True if valiation_status else False
+                        valiation_status = True if valiation_status else False
                         msg += f"{column_name} validated along with datatype"
                     else:
-                        # valiation_status = False
+                        valiation_status = False
                         msg += f"{column_name} validated without datatype"
                 else:
                     valiation_status = False

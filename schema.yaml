@@ -1,25 +1,26 @@
 # Contains the schema of the data
 
 COLUMNS:
-  gender: str
+  gender: object
   SeniorCitizen: int64
-  Partner: str
-  Dependents: str
+  Partner: object
+  Dependents: object
   tenure: int64
-  PhoneService: str
-  MultipleLines: str
-  InternetService: str
-  OnlineSecurity: str
-  OnlineBackup: str
-  DeviceProtection: str
-  TechSupport: str
-  StreamingTV: str
-  StreamingMovies: str
-  Contract: str
-  PaperlessBilling: str
-  PaymentMethod: str
+  PhoneService: object
+  MultipleLines: object
+  InternetService: object
+  OnlineSecurity: object
+  OnlineBackup: object
+  DeviceProtection: object
+  TechSupport: object
+  StreamingTV: object
+  StreamingMovies: object
+  Contract: object
+  PaperlessBilling: object
+  PaymentMethod: object
   MonthlyCharges: float64
   TotalCharges: str
 
 TARGET_COLUMN:
   name: Churn
+  type: object

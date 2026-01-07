@@ -2,3 +2,31 @@
 
 SVM:
   kernel: 'rbf'
+  encoding: 'label_encoding'
+
+test_size: 0.25  
+random_state: 27
+
+data_transformation:
+  smote_threshold: 0.3
+  smote_random_state: 23
+
+models:
+
+  logistic_regression:
+    model_class: sklearn.linear_model.LogisticRegression
+    params:
+      C: [0.01, 0.1, 1.0, 10.0]
+      solver: ["liblinear", "lbfgs"]
+  
+  random_forest:
+    model_class: sklearn.ensemble.RandomForestClassifier
+    params:
+      n_estimators: [50, 100, 200]
+      max_depth: [5, 10, 20]
+
+  xgboost:
+    model_class: xgboost.XGBClassifier
+    params:
+      n_estimators: [100, 200]
+      learning_rate: [0.01, 0.1, 0.2]

@@ -4,6 +4,7 @@ Data ingestion component for Downloading the data from Kaggle.
 
 import kaggle
 import os
+from pathlib import Path
 
 from customer_churn_prediction import logger
 from customer_churn_prediction.utils.common import get_size
@@ -36,7 +37,7 @@ class DataIngestion:
             else:
                 logger.info(
                     f"File: {self.config.local_data_file} "
-                    f"already exists, size: {get_size(self.config.local_data_file)}"
+                    f"already exists, size: {get_size(Path(self.config.local_data_file))}"
                 )
         except Exception as e:
             logger.exception(
