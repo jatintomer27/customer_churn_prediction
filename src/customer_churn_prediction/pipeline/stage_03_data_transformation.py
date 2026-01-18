@@ -44,3 +44,6 @@ class DataTransformationPipeline:
             logger.exception(
                 f"Exception occured while executing the data transformation pipeline"
             )
+
+if __name__ == "__main__":
+    DataTransformationPipeline().main()

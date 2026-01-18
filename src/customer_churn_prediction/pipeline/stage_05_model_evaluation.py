@@ -26,3 +26,6 @@ class ModelEvaluationPipeline:
             logger.exception(
                 f"Exception occured while executing the model evaluation pipeline")
             raise
+
+if __name__ == "__main__":
+    ModelEvaluationPipeline().main()

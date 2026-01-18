@@ -34,3 +34,6 @@ class PredictionPipeline:
                 f"Exception occured while predicting")
         return status, prediction, msg
              
+
+if __name__ == "__main__":
+    PredictionPipeline().predict()

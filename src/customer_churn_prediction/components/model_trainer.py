@@ -11,6 +11,7 @@ import numpy as np
 import os
 import pandas as pd
 from sklearn.metrics import accuracy_score, f1_score, recall_score, roc_auc_score
+from urllib.parse import urlparse
 
 from customer_churn_prediction import logger
 from customer_churn_prediction.constants import CONFIG_FILE_PATH
@@ -81,9 +82,16 @@ class ModelTrainer:
                     self.mlflow.log_metric("roc_auc", roc_auc)
                     self.mlflow.log_metric("recall", recall)
 
-                    self.mlflow.sklearn.log_model(model, artifact_path=model_name)
+                    tracking_scheme = urlparse(self.mlflow.get_tracking_uri()).scheme
 
-
+                    if tracking_scheme != "file":
+                        self.mlflow.sklearn.log_model(
+                            model,
+                            artifact_path=model_name,
+                            registered_model_name=model_name
+                        )
+                    else:
+                        self.mlflow.sklearn.log_model(model, artifact_path=model_name)
 
                 logger.info(f"{model_name} | Params: {params_dict} | F1: {f1:.4f}")
 

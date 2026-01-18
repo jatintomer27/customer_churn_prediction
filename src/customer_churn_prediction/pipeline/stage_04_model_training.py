@@ -26,3 +26,6 @@ class ModelTrainingPipeline:
             logger.exception(
                 f"Exception occured while executing the model training and selection pipeline")
             raise
+
+if __name__ == "__main__":
+    ModelTrainingPipeline().main()

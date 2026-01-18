@@ -19,7 +19,6 @@ COLUMNS:
   PaperlessBilling: object
   PaymentMethod: object
   MonthlyCharges: float64
-  TotalCharges: str
 
 TARGET_COLUMN:
   name: Churn

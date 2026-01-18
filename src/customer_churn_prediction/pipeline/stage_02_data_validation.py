@@ -26,3 +26,6 @@ class DataValidationPipeline:
             logger.exception(
                 f"Exception occured while executing the data validation pipeline"
             )
+
+if __name__ == "__main__":
+    DataValidationPipeline().main()

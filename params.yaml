@@ -12,7 +12,6 @@ data_transformation:
   smote_random_state: 23
 
 models:
-
   logistic_regression:
     model_class: sklearn.linear_model.LogisticRegression
     params:

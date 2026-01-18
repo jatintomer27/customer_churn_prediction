@@ -8,6 +8,8 @@ PyYAML
 scikit-learn
 xgboost
 mlflow==2.13.1
+optuna
+dvc
 dagshub
 dotenv
 imblearn

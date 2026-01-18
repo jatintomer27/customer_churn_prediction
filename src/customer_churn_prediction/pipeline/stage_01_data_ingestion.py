@@ -26,3 +26,6 @@ class DataIngestionPipeline:
             logger.exception(
                 f"Exception occured while executing the data ingestion pipeline")
             raise
+
+if __name__ == "__main__":
+    DataIngestionPipeline().main()

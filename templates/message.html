@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title | default("Message") }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="bg-light">
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">Customer Churn Predictor</a>
+    </div>
+</nav>
+
+<!-- ================= MESSAGE SECTION ================= -->
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-9">
+
+            <div class="card shadow-lg border-0">
+
+                <!-- Optional Image -->
+                {% if image_url %}
+                <div class="text-center mt-4">
+                    <img src="{{ image_url }}"
+                         class="img-fluid rounded"
+                         style="max-height: 280px;"
+                         alt="Message Image">
+                </div>
+                {% endif %}
+
+                <!-- Message Body -->
+                <div class="card-body text-center p-5">
+
+                    <h1 class="mb-3 text-{{ category | default('primary') }}">
+                        <i class="{{ icon | default('fas fa-info-circle') }}"></i>
+                        {{ heading }}
+                    </h1>
+
+                    <p class="lead mb-4">
+                        {{ message }}
+                    </p>
+
+                    <!-- Optional Extra Details -->
+                    {% if details %}
+                    <div class="alert alert-secondary text-start">
+                        {{ details }}
+                    </div>
+                    {% endif %}
+
+                    <!-- Action Buttons -->
+                    <div class="d-flex justify-content-center gap-3 mt-4">
+                        {% if primary_action %}
+                        <a href="{{ primary_action.url }}"
+                           class="btn btn-{{ category | default('primary') }} btn-lg px-4">
+                            {{ primary_action.label }}
+                        </a>
+                        {% endif %}
+
+                        {% if secondary_action %}
+                        <a href="{{ secondary_action.url }}"
+                           class="btn btn-outline-secondary btn-lg px-4">
+                            {{ secondary_action.label }}
+                        </a>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ================= FOOTER ================= -->
+ 
+<footer class="border-top">
+    <div class="container px-4 px-lg-5">
+        <div class="row justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <ul class="list-inline text-center">
+                    <li class="list-inline-item">
+                        <a href="https://www.linkedin.com/in/jatin-tomer-133697227">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a href="https://github.com/jatintomer27">
+                            <span class="fa-stack fa-lg">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+                <p class="small text-center text-muted fst-italic">
+                    © 2026 | Customer Churn Prediction by Jatin Tomer
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
