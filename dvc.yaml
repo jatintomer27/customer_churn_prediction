@@ -2,52 +2,55 @@ stages:
 
   data_ingestion:
     # executes the stage module, which internally calls .main().
-    cmd: python -m customer_churn_prediction.pipeline.stage_01_data_ingestion
+    cmd: PYTHONPATH=src python -m customer_churn_prediction.pipeline.stage_01_data_ingestion
     deps:
-      - customer_churn_prediction.pipeline.stage_01_data_ingestion.py
-      - customer_churn_prediction/config
-      - customer_churn_prediction/utils
+      - src/customer_churn_prediction/pipeline/stage_01_data_ingestion.py
+      - src/customer_churn_prediction/config
+      - src/customer_churn_prediction/utils
     outs:
       - artifacts/data_ingestion
 
   data_validation:
-    cmd: python -m customer_churn_prediction.pipeline.stage_02_data_validation
+    cmd: PYTHONPATH=src python -m customer_churn_prediction.pipeline.stage_02_data_validation
     deps:
       - artifacts/data_ingestion
-      - customer_churn_prediction.pipeline.stage_02_data_validation.py
-      - customer_churn_prediction/config
-      - customer_churn_prediction/utils
+      - src/customer_churn_prediction/pipeline/stage_02_data_validation.py
+      - src/customer_churn_prediction/config
+      - src/customer_churn_prediction/utils 
     outs:
       - artifacts/data_validation
 
   data_transformation:
-    cmd: python -m customer_churn_prediction.pipeline.stage_03_data_transformtion
+    cmd: PYTHONPATH=src python -m customer_churn_prediction.pipeline.stage_03_data_transformation
     deps:
       - artifacts/data_validation
-      - customer_churn_prediction.pipeline.stage_03_data_transformtion.py
-      - customer_churn_prediction/config
-      - customer_churn_prediction/utils
+      - src/customer_churn_prediction/pipeline/stage_03_data_transformation.py
+      - src/customer_churn_prediction/config
+      - src/customer_churn_prediction/utils
+      - params.yaml
     outs:
       - artifacts/data_transformation
 
-  # model_trainer:
-  #   cmd: python -m customer_churn_prediction.pipeline.stage_04_model_training
-  #   deps:
-  #     - artifacts/data_transformation
-  #     - customer_churn_prediction.pipeline.stage_04_model_training.py
-  #     - customer_churn_prediction/config
-  #     - customer_churn_prediction/utils
-  #   outs:
-  #     artifacts/model_trainer
+  model_trainer:
+    cmd: PYTHONPATH=src python -m customer_churn_prediction.pipeline.stage_04_model_training
+    deps:
+      - artifacts/data_transformation
+      - src/customer_churn_prediction/pipeline/stage_04_model_training.py
+      - src/customer_churn_prediction/config
+      - src/customer_churn_prediction/utils
+      - params.yaml
+    outs:
+      - artifacts/model_trainer
 
-  # model_evaluation:
-  #   cmd: python -m customer_churn_prediction.pipeline.stage_05_model_evaluation
-  #   deps:
-  #     - artifacts/model_trainer
-  #     - customer_churn_prediction.pipeline.stage_05_model_evaluation.py
-  #     - customer_churn_prediction/config
-  #     - customer_churn_prediction/utils
-  #   metrics:
-  #     - artifacts/model_evaluation/metrics.json
+  model_evaluation:
+    cmd: PYTHONPATH=src python -m customer_churn_prediction.pipeline.stage_05_model_evaluation
+    deps:
+      - artifacts/model_trainer
+      - src/customer_churn_prediction/pipeline/stage_05_model_evaluation.py
+      - src/customer_churn_prediction/config
+      - src/customer_churn_prediction/utils
+      - params.yaml
+    metrics:
+      - artifacts/model_evaluation/metrics.json
 
 

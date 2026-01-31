@@ -1,9 +1,5 @@
 # Contains the parameters of the models
 
-SVM:
-  kernel: 'rbf'
-  encoding: 'label_encoding'
-
 test_size: 0.25  
 random_state: 27
 
@@ -17,6 +13,7 @@ models:
     params:
       C: [0.01, 0.1, 1.0, 10.0]
       solver: ["liblinear", "lbfgs"]
+      max_iter: [200,300,400]
   
   random_forest:
     model_class: sklearn.ensemble.RandomForestClassifier

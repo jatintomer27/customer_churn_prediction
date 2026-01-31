@@ -54,7 +54,7 @@ class ModelTrainer:
         best_model = None
         best_score = - np.inf
         best_model_name = None
-        train_x, train_y, test_x, test_y = self.load_train_test_split()
+        train_x, train_y, test_x, test_y = self.load_train_test_data_and_split()
         for model_name, model_config in self.config.params.models.items():
             model_class = self._get_class_from_string(model_config.model_class)
             param_grid = model_config.params
@@ -99,7 +99,7 @@ class ModelTrainer:
                     best_score = recall
                     best_model = model
                     best_model_name = model_name
-        logger.info(f"Best model: {best_model_name} with F1-score={best_score:.4f}")
+        logger.info(f"Best model: {best_model_name} with recall={best_score:.4f}")
         joblib.dump(best_model, os.path.join(self.config.root_dir,self.config.model_name))
         logger.info(f"Best model saved at: {os.path.join(self.config.root_dir,self.config.model_name)}")
         return best_model, best_model_name, best_score

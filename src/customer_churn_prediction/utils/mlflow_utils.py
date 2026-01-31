@@ -1,32 +1,71 @@
 """
 Contains utility functions regarding the mlflow.
 """
-from dotenv import load_dotenv
-import mlflow
+
 import os
 import yaml
-
+import mlflow
+from dotenv import load_dotenv
 from customer_churn_prediction import logger
+
 
 def setup_mlflow(config_path: str):
     """
-    Reads credentials from .env and config from YAML,
-    builds full tracking URI, and sets MLflow context.
+    Loads MLflow configuration and credentials,
+    sets tracking URI and experiment safely.
     """
-    load_dotenv()  # load username/password
+    load_dotenv()
 
+    # Load YAML config
     with open(config_path, "r") as f:
         config = yaml.safe_load(f)
+
     mlflow_cfg = config.get("mlflow", {})
 
-    username = os.getenv("MLFLOW_TRACKING_USERNAME")
-    token = os.getenv("MLFLOW_TRACKING_PASSWORD")
-    base_uri = mlflow_cfg.get("tracking_uri_base")
+    tracking_uri = mlflow_cfg.get("tracking_uri_base")
+    experiment_name = mlflow_cfg.get("experiment_name")
 
-    # Build full DagsHub MLflow endpoint with credentials
-    full_uri = f"https://{username}:{token}@{base_uri.removeprefix('https://')}"
-    mlflow.set_tracking_uri(full_uri)
-    mlflow.set_experiment(mlflow_cfg.get("experiment_name"))
+    if not tracking_uri:
+        raise ValueError("MLflow tracking_uri not found in config")
+    if not experiment_name:
+        raise ValueError("MLflow experiment_name not found in config")
 
-    logger.info(f"MLflow connected to: {base_uri}")
+    # Credentials via env (MLflow-native way)
+    if not os.getenv("MLFLOW_TRACKING_USERNAME"):
+        raise EnvironmentError("MLFLOW_TRACKING_USERNAME not set")
+    if not os.getenv("MLFLOW_TRACKING_PASSWORD"):
+        raise EnvironmentError("MLFLOW_TRACKING_PASSWORD not set")
+
+    mlflow.set_tracking_uri(tracking_uri)
+    mlflow.set_experiment(experiment_name)
+
+    logger.info(f"MLflow tracking URI set to: {tracking_uri}")
+    logger.info(f"MLflow experiment set to: {experiment_name}")
+
     return mlflow
+
+
+
+"""
+Qus >> How MLflow actually authenticates ?
+
+MLflow supports Basic Auth via env vars:
+
+MLFLOW_TRACKING_USERNAME
+MLFLOW_TRACKING_PASSWORD
+
+When you do: mlflow.set_tracking_uri("https://dagshub.com/owner/repo.mlflow")
+
+MLflow internally sends: Authorization: Basic base64(username:password)
+
+"""
+
+
+"""
+Here credentials are NOT in the URL.
+
+They are passed implicitly via environment variables, which MLflow picks up internally.
+
+MLflow internally reads these and sends them as HTTP auth headers.
+
+"""

@@ -30,11 +30,10 @@ class ModelEvaluation:
         accuracy = accuracy_score(actual, pred)
         precision = precision_score(actual,pred)
         recall = recall_score(actual,pred)
-        fbeta = fbeta_score(actual, pred)
+        fbeta = fbeta_score(actual, pred,beta=1)
         roc_auc = roc_auc_score(actual, pred)
-        auc_area = auc(actual, pred)
-        logger.info(f"Metrics of the selected model is {[accuracy, precision, recall, fbeta, roc_auc, auc_area]}")
-        return accuracy, precision, recall, fbeta, roc_auc, auc_area
+        logger.info(f"Metrics of the selected model is {[accuracy, precision, recall, fbeta, roc_auc]}")
+        return accuracy, precision, recall, fbeta, roc_auc
     
     def save_result(self):
         """
@@ -45,14 +44,13 @@ class ModelEvaluation:
         test_x = test_data.drop([self.config.target_column],axis=1)
         test_y = test_data[[self.config.target_column]]
         y_pred = model.predict(test_x)
-        accuracy, precision, recall, fbeta, roc_auc, auc_area = self.eval_metrics(test_y, y_pred)
+        accuracy, precision, recall, fbeta, roc_auc = self.eval_metrics(test_y, y_pred)
         scores = {
             'accuracy':accuracy,
             'precision':precision, 
             'recall': recall, 
             'fbeta':fbeta, 
-            'roc_auc':roc_auc, 
-            'auc_area': auc_area
+            'roc_auc':roc_auc
         }
         save_json(path = Path(self.config.metric_file_name), data=scores)
         logger.info(f"Evaluation metrics of the selected model are saved at the path {Path(self.config.metric_file_name)}")

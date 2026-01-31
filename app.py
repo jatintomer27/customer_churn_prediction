@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import pandas as pd
+import subprocess
 
 from flask import Flask, render_template, request
 from customer_churn_prediction import logger
@@ -15,8 +16,27 @@ def homePage():
 
 @app.route("/train", methods=['GET'])
 def train():
-    os.system("python main.py")
-    return render_template("training_message.html")
+    try:
+        subprocess.run(
+            ["dvc", "repro", "model_trainer"],
+            cwd=".",
+            check=True, # If the command fails (returns non-zero), raise an exception immediately.
+            capture_output=True, # Don’t print logs to terminal — give them to Python so I can control them.
+            text=True
+        )
+    except Exception as e:
+        msg = f"Training failed with error: {e}"
+        return render_template(
+                    'message.html', 
+                    title="Traning failed",
+                    heading="Traning the model failed",
+                    message=msg,
+                    category="danger",
+                    icon="fas fa-times-circle",
+                    primary_action={"label": "Home", "url": "/"}
+                )
+    else:
+        return render_template("training_message.html")
 
 @app.route("/predict",methods=['POST','GET'])
 def index():
