@@ -105,16 +105,18 @@ class ModelPrediction:
             prediction (class) : Whether customer will churn or not or None
             msg (str): Data preprocessing message
         """
-        status, msg = True, ''          
+        status, prediction, msg = False, None, ''          
         validation_msg = self.validate_data(data)
         processing_msg, is_data_processed, relevant_data = self.pre_process_data(data)
         if is_data_processed:
-            model = joblib.load(Path(self.config.model_path))
-            prediction = model.predict(relevant_data)
-            return status, prediction, msg
+            model_path = Path(self.config.model_path)
+            if model_path:
+                model = joblib.load(Path(self.config.model_path))
+                prediction = model.predict(relevant_data)
+                status = True
+            else:
+                msg = "Model is not exist yet train the model first"
         else:
-            status = False
             msg = processing_msg
-            prediction = None
         return status, prediction, msg
             

@@ -40,8 +40,8 @@ def train():
 
 @app.route("/predict",methods=['POST','GET'])
 def index():
-    logger.info(f"request: {[request,request.form]}")
     if request.method == 'POST':
+        status = False
         try:
             gender = request.form['gender']
             SeniorCitizen = int(request.form['SeniorCitizen'])
@@ -78,7 +78,7 @@ def index():
                 'tenure':tenure,
                 'MonthlyCharges':MonthlyCharges,
                 'Contract':Contract,
-                'gendInternetServiceer':InternetService,
+                'InternetService':InternetService,
                 'PaymentMethod':PaymentMethod,
                 'PaperlessBilling':PaperlessBilling,
             }
@@ -88,7 +88,12 @@ def index():
             status, prediction, msg = obj.predict(data)
             logger.info(f"Final prediction data: {[status, prediction, msg]}")
             if status:
-                return render_template('result.html', prediction=str(prediction))
+                prediction = prediction[0]
+                if prediction:
+                    msg = "Customer will going to leave the company."
+                else:
+                    msg = "Customer will not going to leave the company."
+                return render_template('results.html', msg=str(msg))
             else:
                 return render_template(
                     'message.html', 

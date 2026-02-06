@@ -1,0 +1,154 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: PYTHONPATH=src python -m 
+      customer_churn_prediction.pipeline.stage_01_data_ingestion
+    deps:
+    - path: src/customer_churn_prediction/config
+      hash: md5
+      md5: 04a05781dab455df552c77c87f3481e8.dir
+      size: 11275
+      nfiles: 4
+    - path: src/customer_churn_prediction/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 75c68043aca0cd0dd9d507089fbb99dc
+      size: 940
+    - path: src/customer_churn_prediction/utils
+      hash: md5
+      md5: 7c62c31b099973b8e399834bd71b6d04.dir
+      size: 12706
+      nfiles: 6
+    outs:
+    - path: artifacts/data_ingestion
+      hash: md5
+      md5: 063d451250fb0faa73bc60935e759442.dir
+      size: 977501
+      nfiles: 1
+  data_validation:
+    cmd: PYTHONPATH=src python -m 
+      customer_churn_prediction.pipeline.stage_02_data_validation
+    deps:
+    - path: artifacts/data_ingestion
+      hash: md5
+      md5: 063d451250fb0faa73bc60935e759442.dir
+      size: 977501
+      nfiles: 1
+    - path: src/customer_churn_prediction/config
+      hash: md5
+      md5: 04a05781dab455df552c77c87f3481e8.dir
+      size: 11275
+      nfiles: 4
+    - path: src/customer_churn_prediction/pipeline/stage_02_data_validation.py
+      hash: md5
+      md5: 351bf17956037e92728297367f7c133b
+      size: 948
+    - path: src/customer_churn_prediction/utils
+      hash: md5
+      md5: 7c62c31b099973b8e399834bd71b6d04.dir
+      size: 12706
+      nfiles: 6
+    outs:
+    - path: artifacts/data_validation
+      hash: md5
+      md5: fe74e7525ccd04248caed56ca66d436b.dir
+      size: 793
+      nfiles: 2
+  data_transformation:
+    cmd: PYTHONPATH=src python -m 
+      customer_churn_prediction.pipeline.stage_03_data_transformation
+    deps:
+    - path: artifacts/data_validation
+      hash: md5
+      md5: fe74e7525ccd04248caed56ca66d436b.dir
+      size: 793
+      nfiles: 2
+    - path: params.yaml
+      hash: md5
+      md5: 095bcc0f13b22100783706443da09562
+      size: 631
+    - path: src/customer_churn_prediction/config
+      hash: md5
+      md5: 04a05781dab455df552c77c87f3481e8.dir
+      size: 11275
+      nfiles: 4
+    - path: 
+        src/customer_churn_prediction/pipeline/stage_03_data_transformation.py
+      hash: md5
+      md5: f404490753efb146d8e0959d69690603
+      size: 1762
+    - path: src/customer_churn_prediction/utils
+      hash: md5
+      md5: 7c62c31b099973b8e399834bd71b6d04.dir
+      size: 12706
+      nfiles: 6
+    outs:
+    - path: artifacts/data_transformation
+      hash: md5
+      md5: eb73709ecb03ca58345d5d18e4a78ef1.dir
+      size: 732632
+      nfiles: 4
+  model_trainer:
+    cmd: PYTHONPATH=src python -m 
+      customer_churn_prediction.pipeline.stage_04_model_training
+    deps:
+    - path: artifacts/data_transformation
+      hash: md5
+      md5: eb73709ecb03ca58345d5d18e4a78ef1.dir
+      size: 732632
+      nfiles: 4
+    - path: params.yaml
+      hash: md5
+      md5: 095bcc0f13b22100783706443da09562
+      size: 631
+    - path: src/customer_churn_prediction/config
+      hash: md5
+      md5: 04a05781dab455df552c77c87f3481e8.dir
+      size: 11275
+      nfiles: 4
+    - path: src/customer_churn_prediction/pipeline/stage_04_model_training.py
+      hash: md5
+      md5: cd029a8a171fae2c1052b5707d8c5d3a
+      size: 974
+    - path: src/customer_churn_prediction/utils
+      hash: md5
+      md5: 7c62c31b099973b8e399834bd71b6d04.dir
+      size: 12706
+      nfiles: 6
+    outs:
+    - path: artifacts/model_trainer
+      hash: md5
+      md5: 2e497b988465f58daa03ab5acbb94242.dir
+      size: 1519
+      nfiles: 1
+  model_evaluation:
+    cmd: PYTHONPATH=src python -m 
+      customer_churn_prediction.pipeline.stage_05_model_evaluation
+    deps:
+    - path: artifacts/model_trainer
+      hash: md5
+      md5: 2e497b988465f58daa03ab5acbb94242.dir
+      size: 1519
+      nfiles: 1
+    - path: params.yaml
+      hash: md5
+      md5: 095bcc0f13b22100783706443da09562
+      size: 631
+    - path: src/customer_churn_prediction/config
+      hash: md5
+      md5: 04a05781dab455df552c77c87f3481e8.dir
+      size: 11275
+      nfiles: 4
+    - path: src/customer_churn_prediction/pipeline/stage_05_model_evaluation.py
+      hash: md5
+      md5: 4fc6dba6fc2e6990e682b929a1c0aed7
+      size: 946
+    - path: src/customer_churn_prediction/utils
+      hash: md5
+      md5: 7c62c31b099973b8e399834bd71b6d04.dir
+      size: 12706
+      nfiles: 6
+    outs:
+    - path: artifacts/model_evaluation/metrics.json
+      hash: md5
+      md5: 717529671d1bd6846d922ce45c5fd954
+      size: 177

@@ -7,8 +7,7 @@ python-box
 PyYAML
 scikit-learn
 xgboost
-mlflow==2.13.1
-optuna
+mlflow
 dvc
 dagshub
 dotenv
