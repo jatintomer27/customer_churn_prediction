@@ -3,8 +3,8 @@ artifacts/
 data/
 logs/
 *.log
-*.dvc
-*.dvcignore
+.dvc
+.dvcignore
 dvc.lock
 
 

@@ -94,7 +94,7 @@ class ModelTrainer:
                     else:
                         self.mlflow.sklearn.log_model(
                             model, 
-                            name=model_name
+                            name=model_name,
                             serialization_format="skops"
                         )
 
