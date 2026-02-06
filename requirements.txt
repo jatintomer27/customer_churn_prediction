@@ -12,6 +12,7 @@ dvc
 dagshub
 dotenv
 imblearn
+skops
 Flask
 Flask-Cors
 -e .

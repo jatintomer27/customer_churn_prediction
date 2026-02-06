@@ -3,6 +3,10 @@ artifacts/
 data/
 logs/
 *.log
+*.dvc
+*.dvcignore
+dvc.lock
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
