@@ -33,6 +33,14 @@ git init
 dvc init
 ```
 
+### Create the .env file and store the MLflow credentials ( MLFLOW_TRACKING_USERNAME & MLFLOW_TRACKING_PASSWORD )
+
+```bash
+touch .env
+```
+
+### Change the Mlflow configuration in the config/config.yaml
+
 ### Execute the pipeline by the DVC ( run where dvc.yaml file exist )
 
 ```bash
