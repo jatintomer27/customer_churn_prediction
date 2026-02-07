@@ -50,3 +50,26 @@ touch .env
 dvc repro
 ```
 
+- Start the app to do the prediction
+
+```bash
+python3 app.py
+```
+
+## Snapshots of the Customer Churn Prediction User Interface
+
+### Home Page
+
+![Home Page](static/assets/img/prediction_1.png)
+
+### Prediction 
+
+![Prediction](static/assets/img/prediction_2.png)
+
+### Prediction Message
+
+![Prediction Message](static/assets/img/prediction_message..png)
+
+### Training Message
+
+![Training Message](static/assets/img/training_successfull.png)

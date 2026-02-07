@@ -87,13 +87,13 @@ class ModelTrainer:
                     if tracking_scheme != "file":
                         self.mlflow.sklearn.log_model(
                             model,
-                            name=model_name,
+                            artifact_path=model_name,
                             registered_model_name=model_name,
                         )
                     else:
                         self.mlflow.sklearn.log_model(
                             model, 
-                            name=model_name,
+                            artifact_path=model_name,
                         )
 
                 logger.info(f"{model_name} | Params: {params_dict} | F1: {f1:.4f}")
