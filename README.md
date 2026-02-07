@@ -26,6 +26,8 @@ pip install -r requirements.txt
 git init
 ```
 
+- Remove the following files from the .gitignore file ( .dvc, .dvcignore, dvc.lock )
+
 - Initialize the DVC
 
 ```bash
@@ -39,6 +41,8 @@ touch .env
 ```
 
 - Change the Mlflow configuration in the config/config.yaml
+
+- Change the configuration in params.yaml according to your need
 
 - Execute the pipeline by the DVC ( run where dvc.yaml file exist )
 

@@ -5,14 +5,14 @@ numpy
 pandas
 python-box
 PyYAML
-scikit-learn
+scikit-learn==1.8.0
 xgboost
 mlflow
 dvc
 dagshub
 dotenv
 imblearn
-skops
+skops==0.13.0
 Flask
 Flask-Cors
 -e .
