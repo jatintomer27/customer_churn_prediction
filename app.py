@@ -23,13 +23,10 @@ def train():
                     check=True, # If the command fails (returns non-zero), raise an exception immediately.
                     capture_output=True, # Don’t print logs to terminal — give them to Python so I can control them.
                     text=True,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.STDOUT,
         )
     except Exception as e:
         msg = f"Training failed with error: {e}"
-        full_logs = result.stdout
-        logger.exception(f"Exception occured while training the model: {full_logs}")
+        logger.exception(f"Exception occured while training the model: {msg}")
         return render_template(
                     'message.html', 
                     title="Traning failed",
