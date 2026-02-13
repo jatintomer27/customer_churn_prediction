@@ -16,6 +16,22 @@ def homePage():
 
 @app.route("/train", methods=['GET'])
 def train():
+    kaggle_username = os.getenv("KAGGLE_USERNAME")
+    kaggle_key = os.getenv("KAGGLE_KEY")
+    mlflow_username = os.getenv("MLFLOW_TRACKING_USERNAME")
+    mlflow_password = os.getenv("MLFLOW_TRACKING_PASSWORD")
+
+    if not (kaggle_username and kaggle_key and mlflow_username and mlflow_password):
+        msg = "Provide the environment variables to enable the training"
+        return render_template(
+            'message.html',
+            title="Traning Disabled",
+            heading="Traning the model is Disabled",
+            message=msg,
+            category="danger",
+            icon="fas fa-times-circle",
+            primary_action={"label": "Home", "url": "/"}
+        )
     try:
         result = subprocess.run(
                     ["dvc", "repro", "model_trainer"],
@@ -23,6 +39,18 @@ def train():
                     check=True, # If the command fails (returns non-zero), raise an exception immediately.
                     capture_output=True, # Don’t print logs to terminal — give them to Python so I can control them.
                     text=True,
+        )
+    except subprocess.CalledProcessError as e:
+        error_msg = (e.stderr or e.stdout or str(e)).strip()
+        logger.error("DVC Training Failed:\n%s", error_msg, exc_info=True)
+        return render_template(
+            'message.html',
+            title="Traning failed",
+            heading="Traning the model failed",
+            message=error_msg,
+            category="danger",
+            icon="fas fa-times-circle",
+            primary_action={"label": "Home", "url": "/"}
         )
     except Exception as e:
         msg = f"Training failed with error: {e}"
@@ -38,7 +66,7 @@ def train():
                 )
     else:
         full_logs = result.stdout
-        logger.exception(f"Model Training messages: {full_logs}")
+        logger.info(f"Model Training messages: {full_logs}")
         return render_template("training_message.html")
 
 @app.route("/predict",methods=['POST','GET'])

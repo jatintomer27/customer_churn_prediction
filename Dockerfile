@@ -78,7 +78,6 @@ RUN pip install --upgrade pip \
 # -------------------------------
 COPY params.yaml .
 COPY dvc.yaml .
-COPY dvc.lock .
 COPY . .
 
 # -------------------------------
