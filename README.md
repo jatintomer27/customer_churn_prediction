@@ -56,6 +56,17 @@ dvc repro
 python3 app.py
 ```
 
+-----
+
+
+## Run the App Using Docker Image (No Setup Required)
+
+- If you don’t want to install dependencies locally, you can run the complete Customer Churn Prediction app directly using Docker.
+
+- [DockerHub Image](https://hub.docker.com/r/jatintomer/customer_churn)
+
+-----
+
 ## Snapshots of the Customer Churn Prediction User Interface
 
 ### Home Page
